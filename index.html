@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#173b4d" name="theme-color"/>
+<title>2026 關西自由行｜大阪・神戶・奈良</title>
+<style>
+    :root{
+      --bg:#f4f1ea;--card:#fffdfa;--ink:#18313d;--muted:#6c777c;
+      --line:#ddd8ce;--nav:#173b4d;--accent:#d97e49;--soft:#edf3f5;
+      --green:#2f7867;--red:#ac4d45;--shadow:0 7px 22px rgba(20,48,61,.08);
+      --safe:env(safe-area-inset-bottom,0px)
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+    body{padding-bottom:calc(74px + var(--safe));line-height:1.55}
+    button,input{font:inherit} a{color:inherit}
+    .app-header{
+      height:58px;position:sticky;top:0;z-index:60;background:var(--nav);color:#fff;
+      display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:0 8px;
+      box-shadow:0 3px 14px rgba(0,0,0,.15)
+    }
+    .app-header h1{font-size:1.03rem;margin:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .app-header.with-language{grid-template-columns:44px minmax(0,1fr) 70px 44px}
+    .lang-switch{
+      display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:2px;
+      border:1px solid rgba(255,255,255,.25);border-radius:999px;
+      background:rgba(255,255,255,.10)
+    }
+    .lang-switch button{
+      border:0;border-radius:999px;background:transparent;color:rgba(255,255,255,.72);
+      padding:5px 7px;font-size:.75rem;font-weight:800;cursor:pointer;line-height:1
+    }
+    .lang-switch button.active{background:#fff;color:var(--nav)}
+    ruby{ruby-position:over}
+    rt{font-size:.52em;color:var(--muted);font-weight:600;letter-spacing:.02em}
+    body.lang-ja .spot h3,body.lang-ja .day-heading h2{line-height:1.8}
+    body.lang-ja .route strong{line-height:1.65}
+    @media(max-width:390px){
+      .app-header.with-language{grid-template-columns:40px minmax(0,1fr) 64px 40px;padding:0 5px}
+      .app-header h1{font-size:.94rem}
+      .lang-switch button{padding:5px 5px}
+    }
+    .icon-btn{width:40px;height:40px;border:0;border-radius:12px;background:transparent;color:#fff;font-size:1.2rem;cursor:pointer}
+    .top-tabs{
+      position:sticky;top:58px;z-index:50;display:flex;overflow-x:auto;gap:4px;
+      background:rgba(244,241,234,.96);backdrop-filter:blur(12px);
+      padding:8px 10px;border-bottom:1px solid var(--line)
+    }
+    .top-tabs button{
+      flex:1;min-width:72px;border:0;border-radius:12px;padding:9px 8px;background:transparent;
+      color:var(--muted);font-size:.86rem;font-weight:700;cursor:pointer;white-space:nowrap
+    }
+    .top-tabs button.active{background:var(--nav);color:#fff}
+    main{width:min(760px,100%);margin:auto;padding:12px}
+    .page{display:none}.page.active{display:block}
+    .page-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:8px 2px 12px}
+    .page-title h2{font-size:1.42rem;margin:0}.page-title p{font-size:.83rem;color:var(--muted);margin:0}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:17px;
+      padding:15px;margin-bottom:11px;box-shadow:var(--shadow)
+    }
+    .card h3,.card h4{margin:0 0 6px}.card p{margin:4px 0;color:#45555d}
+    .muted{color:var(--muted);font-size:.84rem}
+    .summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+    .summary-day{
+      border:1px solid var(--line);border-radius:15px;background:#fff;padding:12px;text-align:left;cursor:pointer
+    }
+    .summary-day strong{display:block}.summary-day span{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}
+    .summary-day .place{color:var(--ink);font-size:1rem;font-weight:800;margin-top:7px}
+    .day-tabs{display:flex;gap:7px;overflow-x:auto;padding:1px 0 10px}
+    .day-tabs button{
+      min-width:61px;border:1px solid var(--line);border-radius:13px;background:#fff;
+      padding:9px 8px;cursor:pointer;color:var(--muted)
+    }
+    .day-tabs button.active{background:var(--nav);border-color:var(--nav);color:#fff}
+    .day-panel{display:none}.day-panel.active{display:block}
+    .day-heading{margin:3px 2px 11px}
+    .day-heading h2{margin:0;font-size:1.35rem}.day-heading p{margin:2px 0;color:var(--muted);font-size:.86rem}
+    .spot{position:relative;padding-left:54px}
+    .spot-icon{
+      position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:10px;
+      display:grid;place-items:center;background:var(--soft)
+    }
+    .hours{
+      display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 7px
+    }
+    .time-pill{
+      display:inline-flex;align-items:center;gap:5px;background:#fff0e7;color:#934c28;
+      border:1px solid #efd1bf;border-radius:999px;padding:5px 9px;font-size:.81rem;font-weight:800
+    }
+    .time-pill.gray{background:#f0efeb;color:#615f59;border-color:#e0ddd5}
+    .time-pill.green{background:#eaf3f0;color:#246354;border-color:#cbe0d9}
+    .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+    .btn{
+      display:inline-flex;align-items:center;text-decoration:none;border-radius:11px;padding:8px 11px;
+      background:var(--nav);color:#fff;border:1px solid var(--nav);font-size:.83rem;font-weight:700
+    }
+    .btn.alt{background:#fff;color:var(--nav)}
+    .brief{
+      border-left:4px solid var(--accent);background:#fff8f1;border-radius:10px;
+      padding:10px 11px;margin-top:9px;font-size:.87rem
+    }
+    .festival{
+      border-left-color:var(--red);background:#fff2f0;color:#703a35
+    }
+    .subtabs{display:flex;gap:7px;overflow-x:auto;margin:0 0 10px}
+    .subtabs button{
+      white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;
+      padding:8px 12px;color:var(--muted);cursor:pointer
+    }
+    .subtabs button.active{background:var(--nav);border-color:var(--nav);color:#fff}
+    .subpanel{display:none}.subpanel.active{display:block}
+    .route{display:flex;overflow-x:auto;padding:4px 0 9px}
+    .stop{
+      position:relative;min-width:145px;margin-right:24px;padding:12px 10px 12px 30px;
+      background:#fff;border:1px solid var(--line);border-radius:13px
+    }
+    .stop:before{content:"";position:absolute;left:10px;top:18px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+    .stop:after{content:"";position:absolute;right:-25px;top:22px;width:24px;height:3px;background:#c8c1b6}
+    .stop:last-child{margin-right:0}.stop:last-child:after{display:none}
+    .stop strong{display:block;font-size:.9rem}.stop small{display:block;color:var(--muted);font-size:.77rem}
+    details{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:9px;overflow:hidden}
+    summary{padding:13px 14px;font-weight:800;cursor:pointer}
+    details>div{padding:0 14px 14px}
+    .brands{display:flex;gap:6px;flex-wrap:wrap}
+    .brands span{font-size:.8rem;background:#f6f4ef;border:1px solid var(--line);border-radius:999px;padding:5px 9px}
+    .info-row{display:grid;grid-template-columns:92px 1fr;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line)}
+    .info-row:last-child{border:0}.info-row strong{font-size:.88rem}.info-row span{font-size:.87rem;color:#45555d}
+    .bottom-nav{
+      position:fixed;z-index:70;bottom:0;left:0;right:0;height:calc(64px + var(--safe));
+      padding:5px 8px var(--safe);background:rgba(23,59,77,.98);display:grid;
+      grid-template-columns:repeat(5,1fr);box-shadow:0 -4px 18px rgba(0,0,0,.16)
+    }
+    .bottom-nav button{border:0;background:transparent;color:rgba(255,255,255,.68);font-size:.68rem;border-radius:11px;cursor:pointer}
+    .bottom-nav button span{display:block;font-size:1.15rem;line-height:1.15}
+    .bottom-nav button.active{background:rgba(255,255,255,.13);color:#fff}
+    .drawer,.search-overlay{
+      position:fixed;inset:0;z-index:100;display:none;background:rgba(10,25,32,.45)
+    }
+    .drawer.open,.search-overlay.open{display:block}
+    .drawer-panel{
+      width:min(330px,86vw);height:100%;background:var(--card);padding:16px;
+      box-shadow:12px 0 30px rgba(0,0,0,.22);overflow:auto
+    }
+    .drawer-head,.search-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+    .drawer-head h2,.search-head h2{margin:0;font-size:1.2rem}
+    .close{border:0;background:#eeeae2;border-radius:10px;width:38px;height:38px;cursor:pointer}
+    .menu-group{margin:15px 0}.menu-group h3{font-size:.82rem;color:var(--muted);margin:0 0 7px}
+    .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+    .menu-grid button{
+      border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;text-align:left;cursor:pointer
+    }
+    .search-box{
+      position:absolute;inset:0;background:var(--bg);padding:14px;overflow:auto
+    }
+    .search-input{width:100%;border:1px solid var(--line);border-radius:13px;padding:12px 13px;background:#fff;outline:none}
+    .result{width:100%;border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px;text-align:left;margin-top:8px;cursor:pointer}
+    .result strong{display:block}.result span{display:block;color:var(--muted);font-size:.81rem;margin-top:2px}
+    .empty{color:var(--muted);text-align:center;padding:30px 10px}
+    .checkline{display:flex;gap:9px;align-items:flex-start}
+    .checkline input{width:19px;height:19px;accent-color:var(--green);flex:none}
+    @media(min-width:640px){
+      .summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      main{padding:18px}
+    }
+    @media print{
+      .app-header,.top-tabs,.bottom-nav,.drawer,.search-overlay{display:none!important}
+      body{padding:0;background:#fff}main{width:100%;padding:0}
+      .page{display:block!important}.day-panel{display:block!important}
+      .card{box-shadow:none;break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+<header class="app-header with-language">
+<button aria-label="開啟選單" class="icon-btn" id="menuOpen">☰</button>
+<h1 data-ja-html="2026 &lt;ruby&gt;関西&lt;rt&gt;かんさい&lt;/rt&gt;&lt;/ruby&gt;自由行" data-zh-html="2026 關西自由行">2026 關西自由行</h1>
+<div aria-label="語言切換" class="lang-switch" role="group">
+<button aria-pressed="true" class="active" data-lang-select="zh" type="button">中</button>
+<button aria-pressed="false" data-lang-select="ja" type="button">日</button>
+</div><button aria-label="搜尋" class="icon-btn" id="searchOpen">⌕</button>
+</header>
+<nav aria-label="頁面分頁" class="top-tabs">
+<button class="active" data-ja-html="一覧" data-page-btn="overview" data-zh-html="總覽">總覽</button>
+<button data-ja-html="日程" data-page-btn="itinerary" data-zh-html="行程">行程</button>
+<button data-ja-html="交通" data-page-btn="transport" data-zh-html="交通">交通</button>
+<button data-ja-html="買い物" data-page-btn="shopping" data-zh-html="購物">購物</button>
+<button data-ja-html="情報" data-page-btn="more" data-zh-html="資訊">資訊</button>
+</nav>
+<main>
+<section class="page active" data-page="overview">
+<div class="page-title"><h2 data-ja-html="&lt;ruby&gt;旅程一覧&lt;rt&gt;りょてい いちらん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="行程總覽">行程總覽</h2></div>
+<div class="summary-grid">
+<button class="summary-day" data-open-day="d1"><strong>7/23 四</strong><span data-ja-html="到着日" data-zh-html="抵達日">抵達日</span><span class="place" data-ja-html="&lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt;・&lt;ruby&gt;大阪くらしの今昔館&lt;rt&gt;おおさか くらし の こんじゃくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="難波・今昔館">難波・今昔館</span></button>
+<button class="summary-day" data-open-day="d2"><strong>7/24 五</strong><span data-ja-html="大阪市内" data-zh-html="大阪市內">大阪市內</span><span class="place" data-ja-html="&lt;ruby&gt;大阪市立科学館&lt;rt&gt;おおさかしりつ かがくかん&lt;/rt&gt;&lt;/ruby&gt;・&lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="科學館・梅田">科學館・梅田</span></button>
+<button class="summary-day" data-open-day="d3"><strong>7/25 六</strong><span data-ja-html="大阪市外" data-zh-html="大阪市外">大阪市外</span><span class="place" data-ja-html="&lt;ruby&gt;神戸&lt;rt&gt;こうべ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="神戶">神戶</span></button>
+<button class="summary-day" data-open-day="d4"><strong>7/26 日</strong><span data-ja-html="3案から選択" data-zh-html="三選一">三選一</span><span class="place" data-ja-html="大阪・室内プラン" data-zh-html="大阪室內日">大阪室內日</span></button>
+<button class="summary-day" data-open-day="d5"><strong>7/27 一</strong><span data-ja-html="大阪市外" data-zh-html="大阪市外">大阪市外</span><span class="place" data-ja-html="&lt;ruby&gt;奈良&lt;rt&gt;なら&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="奈良">奈良</span></button>
+<button class="summary-day" data-open-day="d6"><strong>7/28 二</strong><span data-ja-html="帰国" data-zh-html="回程">回程</span><span class="place" data-ja-html="&lt;ruby&gt;関西空港&lt;rt&gt;かんさい くうこう&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="關西機場">關西機場</span></button>
+</div>
+<div class="card searchable" data-page-ref="more" data-title="住宿 Hotel K6 Osaka Namba" style="margin-top:12px">
+<h3 data-ja-html="宿泊" data-zh-html="住宿">住宿</h3>
+<p>Hotel K6 Osaka Namba</p>
+<p class="muted">2-5-15 Dotonbori, Chuo-ku, Osaka 542-0071</p>
+<div class="actions"><a class="btn" data-ja-html="地図を開く" data-zh-html="開啟地圖" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel K6 Osaka Namba" rel="noopener" target="_blank">開啟地圖</a></div>
+</div>
+<div class="card searchable" data-day-ref="d2" data-page-ref="itinerary" data-title="天神祭避開區域">
+<h3 data-ja-html="&lt;ruby&gt;天神祭&lt;rt&gt;てんじんまつり&lt;/rt&gt;&lt;/ruby&gt; 回避エリア" data-zh-html="天神祭避開區域">天神祭避開區域</h3>
+<p><strong>7/24 下午：</strong>避免大阪天滿宮、南森町、天神橋筋、天滿橋與大川沿岸。</p>
+<p><strong>7/25：</strong>整天安排神戶。</p>
+</div>
+</section>
+<section class="page" data-page="itinerary">
+<div class="day-tabs">
+<button class="active" data-day-btn="d1">7/23</button>
+<button data-day-btn="d2">7/24</button>
+<button data-day-btn="d3">7/25</button>
+<button data-day-btn="d4">7/26</button>
+<button data-day-btn="d5">7/27</button>
+<button data-day-btn="d6">7/28</button>
+</div>
+<div class="day-panel active" data-day="d1">
+<div class="day-heading"><h2 data-ja-html="7/23｜&lt;ruby&gt;大阪&lt;rt&gt;おおさか&lt;/rt&gt;&lt;/ruby&gt;到着" data-zh-html="7/23｜抵達大阪">7/23｜抵達大阪</h2><p data-ja-html="飯店、午餐後，時間足夠才前往 &lt;ruby&gt;大阪くらしの今昔館&lt;rt&gt;おおさか くらし の こんじゃくかん&lt;/rt&gt;&lt;/ruby&gt;。" data-zh-html="飯店、午餐後，時間足夠才前往今昔館。">飯店、午餐後，時間足夠才前往今昔館。</p></div>
+<article class="card spot searchable" data-day-ref="d1" data-page-ref="itinerary" data-title="大阪生活今昔館" data-title-ja="大阪くらしの今昔館 おおさか くらし の こんじゃくかん" id="spot-konjyakukan">
+<div class="spot-icon">🏯</div>
+<h3 data-ja-html="&lt;ruby&gt;大阪くらしの今昔館&lt;rt&gt;おおさか くらし の こんじゃくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="大阪生活今昔館">大阪生活今昔館</h3>
+<div class="hours">
+<span class="time-pill" data-ja-html="&lt;ruby&gt;開館&lt;rt&gt;かいかん&lt;/rt&gt;&lt;/ruby&gt; 10:00–17:00" data-zh-html="開館 10:00–17:00">開館 10:00–17:00</span>
+<span class="time-pill gray" data-ja-html="&lt;ruby&gt;最終入館&lt;rt&gt;さいしゅう にゅうかん&lt;/rt&gt;&lt;/ruby&gt; 16:30" data-zh-html="最晚入館 16:30">最晚入館 16:30</span>
+<span class="time-pill green" data-ja-html="7/23 営業" data-zh-html="7/23 開館">7/23 開館</span>
+</div>
+<p data-ja-html="&lt;ruby&gt;天神橋筋六丁目駅&lt;rt&gt;てんじんばしすじ ろくちょうめ えき&lt;/rt&gt;&lt;/ruby&gt; 3號出口與大樓直結，搭電梯到8樓。" data-zh-html="天神橋筋六丁目站 3 號出口與大樓直結，搭電梯到 8 樓。">天神橋筋六丁目站 3 號出口與大樓直結，搭電梯到 8 樓。</p>
+<div class="brief" data-ja-html="14:30前能從 &lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt; 出發較理想；15:30後不建議前往。" data-zh-html="14:30 前能從難波出發較理想；15:30 後不建議前往。">14:30 前能從難波出發較理想；15:30 後不建議前往。</div>
+<div class="actions">
+<a class="btn" data-ja-html="地図" data-zh-html="地圖" href="https://www.google.com/maps/search/?api=1&amp;query=大阪くらしの今昔館" rel="noopener" target="_blank">地圖</a>
+<a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://www.osaka-angenet.jp/konjyakukan/guide" rel="noopener" target="_blank">官方時間</a>
+</div>
+</article>
+<article class="card searchable" data-day-ref="d1" data-page-ref="itinerary" data-title="難波替代行程">
+<h3 data-ja-html="未前往 &lt;ruby&gt;大阪くらしの今昔館&lt;rt&gt;おおさか くらし の こんじゃくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="未去今昔館">未去今昔館</h3>
+<p data-ja-html="なんばCITY、なんばパークス、&lt;ruby&gt;大阪髙島屋&lt;rt&gt;おおさか たかしまや&lt;/rt&gt;&lt;/ruby&gt; 或回飯店休息。" data-zh-html="難波 CITY、難波 Parks、大阪高島屋或回飯店休息。">難波 CITY、難波 Parks、大阪高島屋或回飯店休息。</p>
+</article>
+</div>
+<div class="day-panel" data-day="d2">
+<div class="day-heading"><h2 data-ja-html="7/24｜&lt;ruby&gt;大阪市立科学館&lt;rt&gt;おおさかしりつ かがくかん&lt;/rt&gt;&lt;/ruby&gt;＋&lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="7/24｜科學館＋梅田">7/24｜科學館＋梅田</h2><p data-ja-html="上午前往 &lt;ruby&gt;大阪市立科学館&lt;rt&gt;おおさかしりつ かがくかん&lt;/rt&gt;&lt;/ruby&gt;，下午往 &lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt; 移動。" data-zh-html="上午科學館，下午往梅田移動。">上午科學館，下午往梅田移動。</p></div>
+<article class="card spot searchable" data-day-ref="d2" data-page-ref="itinerary" data-title="大阪市立科學館" data-title-ja="大阪市立科学館 おおさかしりつ かがくかん" id="spot-science">
+<div class="spot-icon">🔬</div>
+<h3 data-ja-html="&lt;ruby&gt;大阪市立科学館&lt;rt&gt;おおさかしりつ かがくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="大阪市立科學館">大阪市立科學館</h3>
+<div class="hours">
+<span class="time-pill" data-ja-html="&lt;ruby&gt;開館&lt;rt&gt;かいかん&lt;/rt&gt;&lt;/ruby&gt; 09:30–17:00" data-zh-html="開館 09:30–17:00">開館 09:30–17:00</span>
+<span class="time-pill gray" data-ja-html="&lt;ruby&gt;展示場&lt;rt&gt;てんじじょう&lt;/rt&gt;&lt;/ruby&gt; 最終入場 16:30" data-zh-html="展示場最晚入場 16:30">展示場最晚入場 16:30</span>
+<span class="time-pill green" data-ja-html="7/24 営業" data-zh-html="7/24 開館">7/24 開館</span>
+</div>
+<p data-ja-html="建議接近09:30入館，先使用操作型展示；&lt;ruby&gt;プラネタリウム&lt;rt&gt;ぷらねたりうむ&lt;/rt&gt;&lt;/ruby&gt; 依場次決定。" data-zh-html="建議接近 09:30 入館，先使用操作型展示；天文館依場次決定。">建議接近 09:30 入館，先使用操作型展示；天文館依場次決定。</p>
+<div class="actions">
+<a class="btn" data-ja-html="地図" data-zh-html="地圖" href="https://www.google.com/maps/search/?api=1&amp;query=大阪市立科学館" rel="noopener" target="_blank">地圖</a>
+<a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://www.sci-museum.jp/info/guide/" rel="noopener" target="_blank">官方時間</a>
+</div>
+</article>
+<article class="card searchable" data-day-ref="d2" data-page-ref="itinerary" data-title="梅田 Grand Front LUCUA 阪神梅田 阪急三番街">
+<h3 data-ja-html="下午：&lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="下午：梅田">下午：梅田</h3>
+<p data-ja-html="グランフロント大阪、LUCUA／LUCUA 1100、&lt;ruby&gt;阪神梅田&lt;rt&gt;はんしん うめだ&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;阪急三番街&lt;rt&gt;はんきゅう さんばんがい&lt;/rt&gt;&lt;/ruby&gt; 擇一至二處。" data-zh-html="Grand Front大阪、LUCUA／LUCUA 1100、阪神梅田、阪急三番街擇一至二處。">Grand Front大阪、LUCUA／LUCUA 1100、阪神梅田、阪急三番街擇一至二處。</p>
+<div class="brief festival" data-ja-html="不要往 &lt;ruby&gt;大阪天満宮&lt;rt&gt;おおさか てんまんぐう&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;南森町&lt;rt&gt;みなみもりまち&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;天神橋筋&lt;rt&gt;てんじんばしすじ&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;天満橋&lt;rt&gt;てんまばし&lt;/rt&gt;&lt;/ruby&gt; 與 &lt;ruby&gt;大川&lt;rt&gt;おおかわ&lt;/rt&gt;&lt;/ruby&gt; 沿岸移動。" data-zh-html="不要往大阪天滿宮、南森町、天橋筋、天滿橋與大川沿岸移動。">不要往大阪天滿宮、南森町、天橋筋、天滿橋與大川沿岸移動。</div>
+</article>
+</div>
+<div class="day-panel" data-day="d3">
+<div class="day-heading"><h2 data-ja-html="7/25｜&lt;ruby&gt;神戸&lt;rt&gt;こうべ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="7/25｜神戶">7/25｜神戶</h2><p data-ja-html="主景點先以 &lt;ruby&gt;神戸どうぶつ王国&lt;rt&gt;こうべ どうぶつ おうこく&lt;/rt&gt;&lt;/ruby&gt; 為核心。" data-zh-html="主景點先以神戶動物王國為核心。">主景點先以神戶動物王國為核心。</p></div>
+<article class="card spot searchable" data-day-ref="d3" data-page-ref="itinerary" data-title="神戶動物王國" data-title-ja="神戸どうぶつ王国 こうべ どうぶつ おうこく" id="spot-kobe-oukoku">
+<div class="spot-icon">🦦</div>
+<h3 data-ja-html="&lt;ruby&gt;神戸どうぶつ王国&lt;rt&gt;こうべ どうぶつ おうこく&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="神戶動物王國">神戶動物王國</h3>
+<div class="hours">
+<span class="time-pill">7/25 10:00–17:00</span>
+</div>
+<p data-ja-html="從 &lt;ruby&gt;大阪難波駅&lt;rt&gt;おおさか なんば えき&lt;/rt&gt;&lt;/ruby&gt; 搭 &lt;ruby&gt;阪神快速急行&lt;rt&gt;はんしん かいそく きゅうこう&lt;/rt&gt;&lt;/ruby&gt; 到 &lt;ruby&gt;神戸三宮駅&lt;rt&gt;こうべ さんのみや えき&lt;/rt&gt;&lt;/ruby&gt;，再轉ポートライナー至 &lt;ruby&gt;計算科学センター駅&lt;rt&gt;けいさん かがく センター えき&lt;/rt&gt;&lt;/ruby&gt;。" data-zh-html="大阪難波搭阪神快速急行到神戶三宮，再轉 Port Liner 至計算科學中心站。">大阪難波搭阪神快速急行到神戶三宮，再轉 Port Liner 至計算科學中心站。</p>
+<div class="actions">
+<a class="btn" data-ja-html="地図" data-zh-html="地圖" href="https://www.google.com/maps/search/?api=1&amp;query=神戸どうぶつ王国" rel="noopener" target="_blank">地圖</a>
+<a class="btn alt" data-ja-html="営業カレンダー" data-zh-html="營業日曆" href="https://www.kobe-oukoku.com/information/calendar" rel="noopener" target="_blank">營業日曆</a>
+</div>
+</article>
+<article class="card spot searchable" data-day-ref="d3" data-page-ref="itinerary" data-title="風見雞館 北野異人館" data-title-ja="風見鶏の館 かざみどり の やかた 北野異人館 きたの いじんかん">
+<div class="spot-icon">🏠</div>
+<h3 data-ja-html="&lt;ruby&gt;北野異人館&lt;rt&gt;きたの いじんかん&lt;/rt&gt;&lt;/ruby&gt;：&lt;ruby&gt;風見鶏の館&lt;rt&gt;かざみどり の やかた&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="北野異人館：風見雞館">北野異人館：風見雞館</h3>
+<div class="hours">
+<span class="time-pill" data-ja-html="&lt;ruby&gt;開館&lt;rt&gt;かいかん&lt;/rt&gt;&lt;/ruby&gt; 09:00–17:00" data-zh-html="開館 09:00–17:00">開館 09:00–17:00</span>
+<span class="time-pill gray" data-ja-html="&lt;ruby&gt;最終入館&lt;rt&gt;さいしゅう にゅうかん&lt;/rt&gt;&lt;/ruby&gt; 16:45" data-zh-html="最晚入館 16:45">最晚入館 16:45</span>
+</div>
+<p data-ja-html="下午時間足夠時再加入；&lt;ruby&gt;北野異人館&lt;rt&gt;きたの いじんかん&lt;/rt&gt;&lt;/ruby&gt; 與 &lt;ruby&gt;神戸港&lt;rt&gt;こうべこう&lt;/rt&gt;&lt;/ruby&gt; 室內景點二選一。" data-zh-html="下午時間足夠時再加入；異人館區可與神戶港室內景點二選一。">下午時間足夠時再加入；異人館區可與神戶港室內景點二選一。</p>
+<div class="actions"><a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://kobe-kazamidori.com/guide/" rel="noopener" target="_blank">官方時間</a></div>
+</article>
+<article class="card spot searchable" data-day-ref="d3" data-page-ref="itinerary" data-title="神戶海洋博物館 Kawasaki World" data-title-ja="神戸海洋博物館 こうべ かいよう はくぶつかん カワサキワールド">
+<div class="spot-icon">⚓</div>
+<h3 data-ja-html="&lt;ruby&gt;神戸海洋博物館&lt;rt&gt;こうべ かいよう はくぶつかん&lt;/rt&gt;&lt;/ruby&gt;／カワサキワールド" data-zh-html="神戶海洋博物館／Kawasaki World">神戶海洋博物館／Kawasaki World</h3>
+<div class="hours">
+<span class="time-pill" data-ja-html="&lt;ruby&gt;開館&lt;rt&gt;かいかん&lt;/rt&gt;&lt;/ruby&gt; 10:00–18:00" data-zh-html="開館 10:00–18:00">開館 10:00–18:00</span>
+<span class="time-pill gray" data-ja-html="&lt;ruby&gt;最終入館&lt;rt&gt;さいしゅう にゅうかん&lt;/rt&gt;&lt;/ruby&gt; 17:30" data-zh-html="最晚入館 17:30">最晚入館 17:30</span>
+</div>
+<p data-ja-html="可作為下午的室內候選，與 &lt;ruby&gt;北野異人館&lt;rt&gt;きたの いじんかん&lt;/rt&gt;&lt;/ruby&gt; 或 &lt;ruby&gt;布引ハーブ園&lt;rt&gt;ぬのびき ハーブえん&lt;/rt&gt;&lt;/ruby&gt; 擇一。" data-zh-html="可作為下午的室內候選，與異人館或香草園擇一。">可作為下午的室內候選，與異人館或香草園擇一。</p>
+<div class="actions"><a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://kobe-maritime-museum.com/price/" rel="noopener" target="_blank">官方時間</a></div>
+</article>
+</div>
+<div class="day-panel" data-day="d4">
+<div class="day-heading"><h2 data-ja-html="7/26｜大阪・室内プラン" data-zh-html="7/26｜大阪室內日">7/26｜大阪室內日</h2><p data-ja-html="以下3種版本擇一。" data-zh-html="以下三種版本擇一。">以下三種版本擇一。</p></div>
+<div class="subtabs">
+<button class="active" data-ja-html="&lt;ruby&gt;自然史&lt;rt&gt;しぜんし&lt;/rt&gt;&lt;/ruby&gt;" data-sub-btn="natural" data-zh-html="自然史">自然史</button>
+<button data-ja-html="キッズプラザ" data-sub-btn="kids" data-zh-html="Kids Plaza">Kids Plaza</button>
+<button data-ja-html="&lt;ruby&gt;海遊館&lt;rt&gt;かいゆうかん&lt;/rt&gt;&lt;/ruby&gt;" data-sub-btn="kaiyukan" data-zh-html="海遊館">海遊館</button>
+</div>
+<div class="subpanel active" data-sub="natural">
+<article class="card spot searchable" data-day-ref="d4" data-page-ref="itinerary" data-sub-ref="natural" data-title="大阪市立自然史博物館 大絕滅展" data-title-ja="大阪市立自然史博物館 おおさかしりつ しぜんし はくぶつかん">
+<div class="spot-icon">🦖</div>
+<h3 data-ja-html="&lt;ruby&gt;大阪市立自然史博物館&lt;rt&gt;おおさかしりつ しぜんし はくぶつかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="大阪市立自然史博物館">大阪市立自然史博物館</h3>
+<div class="hours">
+<span class="time-pill" data-ja-html="&lt;ruby&gt;開館&lt;rt&gt;かいかん&lt;/rt&gt;&lt;/ruby&gt; 09:30–17:00" data-zh-html="開館 09:30–17:00">開館 09:30–17:00</span>
+<span class="time-pill gray" data-ja-html="&lt;ruby&gt;最終入館&lt;rt&gt;さいしゅう にゅうかん&lt;/rt&gt;&lt;/ruby&gt; 16:30" data-zh-html="最晚入館 16:30">最晚入館 16:30</span>
+<span class="time-pill green" data-ja-html="7/26 営業" data-zh-html="7/26 開館">7/26 開館</span>
+</div>
+<p data-ja-html="上午參觀；下午轉往 &lt;ruby&gt;天王寺&lt;rt&gt;てんのうじ&lt;/rt&gt;&lt;/ruby&gt; MIO、&lt;ruby&gt;あべの&lt;rt&gt;あべの&lt;/rt&gt;&lt;/ruby&gt; Q’s Mall 或 あべのハルカス。" data-zh-html="上午參觀；下午轉往天王寺 MIO、阿倍野 Q’s Mall或 HARUKAS。">上午參觀；下午轉往天王寺 MIO、阿倍野 Q’s Mall或 HARUKAS。</p>
+<div class="actions">
+<a class="btn" data-ja-html="地図" data-zh-html="地圖" href="https://www.google.com/maps/search/?api=1&amp;query=大阪市立自然史博物館" rel="noopener" target="_blank">地圖</a>
+<a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://omnh.jp/guide_top/guide" rel="noopener" target="_blank">官方時間</a>
+</div>
+</article>
+</div>
+<div class="subpanel" data-sub="kids">
+<article class="card spot searchable" data-day-ref="d4" data-page-ref="itinerary" data-sub-ref="kids" data-title="Kids Plaza Osaka 大阪兒童博物館" data-title-ja="キッズプラザ大阪 おおさか">
+<div class="spot-icon">🧩</div>
+<h3 data-ja-html="キッズプラザ&lt;ruby&gt;大阪&lt;rt&gt;おおさか&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="Kids Plaza Osaka">Kids Plaza Osaka</h3>
+<div class="hours">
+<span class="time-pill" data-ja-html="&lt;ruby&gt;開館&lt;rt&gt;かいかん&lt;/rt&gt;&lt;/ruby&gt; 09:30–17:00" data-zh-html="開館 09:30–17:00">開館 09:30–17:00</span>
+<span class="time-pill gray" data-ja-html="&lt;ruby&gt;最終入館&lt;rt&gt;さいしゅう にゅうかん&lt;/rt&gt;&lt;/ruby&gt; 16:15" data-zh-html="最晚入館 16:15">最晚入館 16:15</span>
+<span class="time-pill green" data-ja-html="7/26 営業" data-zh-html="7/26 開館">7/26 開館</span>
+</div>
+<p data-ja-html="建議開館時進場。下午依7/23是否去過 &lt;ruby&gt;大阪くらしの今昔館&lt;rt&gt;おおさか くらし の こんじゃくかん&lt;/rt&gt;&lt;/ruby&gt;，選擇今昔館、&lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt; 或回 &lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt;。" data-zh-html="建議開館時進場。下午依 7/23 是否去過今昔館，選擇今昔館、梅田或回難波。">建議開館時進場。下午依 7/23 是否去過今昔館，選擇今昔館、梅田或回難波。</p>
+<div class="actions">
+<a class="btn" data-ja-html="地図" data-zh-html="地圖" href="https://www.google.com/maps/search/?api=1&amp;query=キッズプラザ大阪" rel="noopener" target="_blank">地圖</a>
+<a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://www.kidsplaza.or.jp/info/" rel="noopener" target="_blank">官方時間</a>
+</div>
+</article>
+<article class="card spot searchable" data-day-ref="d4" data-page-ref="itinerary" data-sub-ref="kids" data-title="大阪生活今昔館 下午">
+<div class="spot-icon">🏯</div>
+<h3 data-ja-html="下午候選：&lt;ruby&gt;大阪くらしの今昔館&lt;rt&gt;おおさか くらし の こんじゃくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="下午候選：大阪生活今昔館">下午候選：大阪生活今昔館</h3>
+<div class="hours">
+<span class="time-pill" data-ja-html="&lt;ruby&gt;開館&lt;rt&gt;かいかん&lt;/rt&gt;&lt;/ruby&gt; 10:00–17:00" data-zh-html="開館 10:00–17:00">開館 10:00–17:00</span>
+<span class="time-pill gray" data-ja-html="&lt;ruby&gt;最終入館&lt;rt&gt;さいしゅう にゅうかん&lt;/rt&gt;&lt;/ruby&gt; 16:30" data-zh-html="最晚入館 16:30">最晚入館 16:30</span>
+</div>
+</article>
+</div>
+<div class="subpanel" data-sub="kaiyukan">
+<article class="card spot searchable" data-day-ref="d4" data-page-ref="itinerary" data-sub-ref="kaiyukan" data-title="海遊館 天保山" data-title-ja="海遊館 かいゆうかん 天保山 てんぽうざん">
+<div class="spot-icon">🐋</div>
+<h3 data-ja-html="&lt;ruby&gt;海遊館&lt;rt&gt;かいゆうかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="海遊館">海遊館</h3>
+<div class="hours">
+<span class="time-pill">7/26 09:00–20:00</span>
+</div>
+<p data-ja-html="預約較早的入場時段；下午留在 &lt;ruby&gt;天保山&lt;rt&gt;てんぽうざん&lt;/rt&gt;&lt;/ruby&gt;マーケットプレース。" data-zh-html="預約較早的入場時段；下午留在天保山 Marketplace。">預約較早的入場時段；下午留在天保山 Marketplace。</p>
+<div class="actions">
+<a class="btn" data-ja-html="地図" data-zh-html="地圖" href="https://www.google.com/maps/search/?api=1&amp;query=海遊館" rel="noopener" target="_blank">地圖</a>
+<a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://www.kaiyukan.com/info/hours/" rel="noopener" target="_blank">官方時間</a>
+</div>
+</article>
+<article class="card spot searchable" data-day-ref="d4" data-page-ref="itinerary" data-sub-ref="kaiyukan" data-title="天保山 Marketplace">
+<div class="spot-icon">🍜</div>
+<h3 data-ja-html="&lt;ruby&gt;天保山&lt;rt&gt;てんぽうざん&lt;/rt&gt;&lt;/ruby&gt;マーケットプレース" data-zh-html="天保山 Marketplace">天保山 Marketplace</h3>
+<div class="hours">
+<span class="time-pill">7/26 10:00–22:00</span>
+<span class="time-pill gray" data-ja-html="ショップ多數至 20:00" data-zh-html="購物多數至 20:00">購物多數至 20:00</span>
+<span class="time-pill gray" data-ja-html="レストラン多數至 21:00" data-zh-html="餐廳多數至 21:00">餐廳多數至 21:00</span>
+</div>
+</article>
+</div>
+</div>
+<div class="day-panel" data-day="d5">
+<div class="day-heading"><h2 data-ja-html="7/27｜&lt;ruby&gt;奈良&lt;rt&gt;なら&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="7/27｜奈良">7/27｜奈良</h2><p data-ja-html="&lt;ruby&gt;春日大社&lt;rt&gt;かすがたいしゃ&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;東大寺&lt;rt&gt;とうだいじ&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;奈良公園&lt;rt&gt;ならこうえん&lt;/rt&gt;&lt;/ruby&gt;、ならまち。" data-zh-html="春日大社、東大寺、奈良公園、奈良町。">春日大社、東大寺、奈良公園、奈良町。</p></div>
+<article class="card spot searchable" data-day-ref="d5" data-page-ref="itinerary" data-title="春日大社" data-title-ja="春日大社 かすがたいしゃ">
+<div class="spot-icon">⛩️</div>
+<h3 data-ja-html="&lt;ruby&gt;春日大社&lt;rt&gt;かすがたいしゃ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="春日大社">春日大社</h3>
+<div class="hours">
+<span class="time-pill" data-ja-html="&lt;ruby&gt;参拝所&lt;rt&gt;さんぱいじょ&lt;/rt&gt;&lt;/ruby&gt; 06:30–17:30" data-zh-html="參拜所 06:30–17:30">參拜所 06:30–17:30</span>
+<span class="time-pill gray" data-ja-html="&lt;ruby&gt;御本殿特別参拝&lt;rt&gt;ごほんでん とくべつ さんぱい&lt;/rt&gt;&lt;/ruby&gt; 09:00–16:00" data-zh-html="御本殿特別參拜 09:00–16:00">御本殿特別參拜 09:00–16:00</span>
+</div>
+<div class="actions"><a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://www.kasugataisha.or.jp/about/basic/" rel="noopener" target="_blank">官方時間</a></div>
+</article>
+<article class="card spot searchable" data-day-ref="d5" data-page-ref="itinerary" data-title="東大寺 大佛殿" data-title-ja="東大寺大仏殿 とうだいじ だいぶつでん">
+<div class="spot-icon">🛕</div>
+<h3 data-ja-html="&lt;ruby&gt;東大寺大仏殿&lt;rt&gt;とうだいじ だいぶつでん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="東大寺大佛殿">東大寺大佛殿</h3>
+<div class="hours">
+<span class="time-pill">07:30–17:30</span>
+</div>
+<div class="actions"><a class="btn alt" data-ja-html="営業時間" data-zh-html="官方時間" href="https://www.todaiji.or.jp/information/haikan/" rel="noopener" target="_blank">官方時間</a></div>
+</article>
+<article class="card spot searchable" data-day-ref="d5" data-page-ref="itinerary" data-title="奈良公園" data-title-ja="奈良公園 ならこうえん">
+<div class="spot-icon">🦌</div>
+<h3 data-ja-html="&lt;ruby&gt;奈良公園&lt;rt&gt;ならこうえん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="奈良公園">奈良公園</h3>
+<div class="hours"><span class="time-pill green" data-ja-html="終日開放" data-zh-html="全天開放">全天開放</span></div>
+</article>
+<article class="card spot searchable" data-day-ref="d5" data-page-ref="itinerary" data-title="奈良町 散策 商店" data-title-ja="ならまち">
+<div class="spot-icon">🍮</div>
+<h3 data-ja-html="ならまち" data-zh-html="奈良町">奈良町</h3>
+<div class="hours"><span class="time-pill gray" data-ja-html="店舗により異なる、多數約 10:00–17:00" data-zh-html="各店時間不同，多數約 10:00–17:00">各店時間不同，多數約 10:00–17:00</span></div>
+<p data-ja-html="&lt;ruby&gt;志津香&lt;rt&gt;しづか&lt;/rt&gt;&lt;/ruby&gt;の釜飯、&lt;ruby&gt;中谷堂&lt;rt&gt;なかたにどう&lt;/rt&gt;&lt;/ruby&gt;のよもぎ餅、&lt;ruby&gt;まほろば大仏プリン&lt;rt&gt;まほろば だいぶつ プリン&lt;/rt&gt;&lt;/ruby&gt; 列為候選。" data-zh-html="志津香釜飯、中谷堂麻糬、大佛布丁列為候選。">志津香釜飯、中谷堂麻糬、大佛布丁列為候選。</p>
+</article>
+<div class="brief festival" data-ja-html="&lt;ruby&gt;奈良国立博物館&lt;rt&gt;なら こくりつ はくぶつかん&lt;/rt&gt;&lt;/ruby&gt; 星期一休館，不列入7/27行程。" data-zh-html="奈良國立博物館星期一休館，不列入 7/27 行程。">奈良國立博物館星期一休館，不列入 7/27 行程。</div>
+</div>
+<div class="day-panel" data-day="d6">
+<div class="day-heading"><h2 data-ja-html="7/28｜帰国" data-zh-html="7/28｜回程">7/28｜回程</h2><p data-ja-html="不安排景點。" data-zh-html="不安排景點。">不安排景點。</p></div>
+<article class="card searchable" data-day-ref="d6" data-page-ref="itinerary" data-title="回程 Rapi:t 關西機場">
+<h3 data-ja-html="飯店 → &lt;ruby&gt;南海なんば駅&lt;rt&gt;なんかい なんば えき&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;関西空港&lt;rt&gt;かんさい くうこう&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="飯店 → 南海難波站 → 關西機場">飯店 → 南海難波站 → 關西機場</h3>
+<p data-ja-html="帰国便は12:25出発予定。朝食・チェックアウト後、直接 &amp;lt;ruby&amp;gt;関西空港&amp;lt;rt&amp;gt;かんさい くうこう&amp;lt;/rt&amp;gt;&amp;lt;/ruby&amp;gt; へ。" data-zh-html="回程班機暫定 12:25 起飛，早餐、退房後直接前往機場。">回程班機暫定 12:25 起飛，早餐、退房後直接前往機場。</p>
+</article>
+</div>
+</section>
+<section class="page" data-page="transport">
+<div class="page-title"><h2 data-ja-html="交通" data-zh-html="交通">交通</h2></div>
+<article class="card searchable" data-page-ref="transport" data-title="關西機場 難波 Rapi:t">
+<h3 data-ja-html="&lt;ruby&gt;関西空港&lt;rt&gt;かんさい くうこう&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="關西機場 → 難波">關西機場 → 難波</h3>
+<div class="route">
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;関西空港&lt;rt&gt;かんさい くうこう&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="關西機場">關西機場</strong><small data-ja-html="入国・手荷物受取" data-zh-html="入境、領行李">入境、領行李</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;南海特急ラピート&lt;rt&gt;なんかい とっきゅう ラピート&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="南海 Rapi:t">南海 Rapi:t</strong><small data-ja-html="&lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt;行き" data-zh-html="往難波">往難波</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="難波">難波</strong><small>Hotel K6</small></div>
+</div>
+</article>
+<article class="card searchable" data-page-ref="transport" data-title="難波 今昔館 天神橋筋六丁目">
+<h3 data-ja-html="&lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;大阪くらしの今昔館&lt;rt&gt;おおさか くらし の こんじゃくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="難波 → 今昔館">難波 → 今昔館</h3>
+<div class="route">
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;日本橋駅&lt;rt&gt;にっぽんばし えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="日本橋站">日本橋站</strong><small data-ja-html="&lt;ruby&gt;堺筋線&lt;rt&gt;さかいすじせん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="堺筋線">堺筋線</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;天神橋筋六丁目駅&lt;rt&gt;てんじんばしすじ ろくちょうめ えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="天神橋筋六丁目">天神橋筋六丁目</strong><small data-ja-html="3番出口" data-zh-html="3 號出口">3 號出口</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;地下直結&lt;rt&gt;ちか ちょっけつ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="地下直結">地下直結</strong><small data-ja-html="エレベーターで8階へ" data-zh-html="電梯到 8 樓">電梯到 8 樓</small></div>
+</div>
+</article>
+<article class="card searchable" data-page-ref="transport" data-title="難波 大阪市立科學館 肥後橋 梅田">
+<h3 data-ja-html="&lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;大阪市立科学館&lt;rt&gt;おおさかしりつ かがくかん&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="難波 → 科學館 → 梅田">難波 → 科學館 → 梅田</h3>
+<div class="route">
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="難波">難波</strong><small data-ja-html="&lt;ruby&gt;四つ橋線&lt;rt&gt;よつばしせん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="四つ橋線">四つ橋線</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;肥後橋駅&lt;rt&gt;ひごばし えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="肥後橋站">肥後橋站</strong><small data-ja-html="3番出口" data-zh-html="3 號出口">3 號出口</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;科学館&lt;rt&gt;かがくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="科學館">科學館</strong><small data-ja-html="&lt;ruby&gt;徒歩&lt;rt&gt;とほ&lt;/rt&gt;&lt;/ruby&gt;約7分" data-zh-html="步行約 7 分鐘">步行約 7 分鐘</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="梅田">梅田</strong><small data-ja-html="午後移動" data-zh-html="午後移動">午後移動</small></div>
+</div>
+</article>
+<article class="card searchable" data-page-ref="transport" data-title="大阪難波 神戶三宮 神戶動物王國 Port Liner">
+<h3 data-ja-html="&lt;ruby&gt;大阪難波駅&lt;rt&gt;おおさか なんば えき&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;神戸どうぶつ王国&lt;rt&gt;こうべ どうぶつ おうこく&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="大阪難波 → 神戶動物王國">大阪難波 → 神戶動物王國</h3>
+<div class="route">
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;大阪難波駅&lt;rt&gt;おおさか なんば えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="大阪難波">大阪難波</strong><small data-ja-html="&lt;ruby&gt;阪神快速急行&lt;rt&gt;はんしん かいそく きゅうこう&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="阪神快速急行">阪神快速急行</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;神戸三宮駅&lt;rt&gt;こうべ さんのみや えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="神戶三宮">神戶三宮</strong><small data-ja-html="ポートライナーに乗換" data-zh-html="轉 Port Liner">轉 Port Liner</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;計算科学センター駅&lt;rt&gt;けいさん かがく センター えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="計算科學中心">計算科學中心</strong><small data-ja-html="&lt;ruby&gt;神戸どうぶつ王国前&lt;rt&gt;こうべ どうぶつ おうこく まえ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="動物王國前">動物王國前</small></div>
+</div>
+</article>
+<article class="card searchable" data-page-ref="transport" data-title="大阪難波 近鐵奈良">
+<h3 data-ja-html="&lt;ruby&gt;大阪難波駅&lt;rt&gt;おおさか なんば えき&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;近鉄奈良駅&lt;rt&gt;きんてつ なら えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="大阪難波 → 奈良">大阪難波 → 奈良</h3>
+<div class="route">
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;大阪難波駅&lt;rt&gt;おおさか なんば えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="大阪難波">大阪難波</strong><small data-ja-html="&lt;ruby&gt;近鉄快速急行&lt;rt&gt;きんてつ かいそく きゅうこう&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="近鐵快速急行">近鐵快速急行</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;近鉄奈良駅&lt;rt&gt;きんてつ なら えき&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="近鐵奈良">近鐵奈良</strong><small data-ja-html="約40分" data-zh-html="約 40 分鐘">約 40 分鐘</small></div>
+<div class="stop"><strong data-ja-html="&lt;ruby&gt;奈良交通バス&lt;rt&gt;なら こうつう バス&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="市區巴士">市區巴士</strong><small data-ja-html="&lt;ruby&gt;春日大社&lt;rt&gt;かすがたいしゃ&lt;/rt&gt;&lt;/ruby&gt;へ" data-zh-html="前往春日大社">前往春日大社</small></div>
+</div>
+</article>
+<details>
+<summary data-ja-html="参考時刻" data-zh-html="原行程草稿的參考班次">原行程草稿的參考班次</summary>
+<div>
+<p><strong data-ja-html="&lt;ruby&gt;大阪難波駅&lt;rt&gt;おおさか なんば えき&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;神戸三宮駅&lt;rt&gt;こうべ さんのみや えき&lt;/rt&gt;&lt;/ruby&gt;：" data-zh-html="大阪難波 → 神戶三宮：">大阪難波 → 神戶三宮：</strong>08:08→08:57、08:21→09:09、08:48→09:34、09:52→10:33。</p>
+<p><strong data-ja-html="&lt;ruby&gt;大阪難波駅&lt;rt&gt;おおさか なんば えき&lt;/rt&gt;&lt;/ruby&gt; → &lt;ruby&gt;近鉄奈良駅&lt;rt&gt;きんてつ なら えき&lt;/rt&gt;&lt;/ruby&gt;：" data-zh-html="大阪難波 → 近鐵奈良：">大阪難波 → 近鐵奈良：</strong>08:24→09:00、08:34→09:11、08:45→09:22、08:54→09:30、09:04→09:41。</p>
+<p class="muted" data-ja-html="出發前請以公式時刻表為準。" data-zh-html="出發前以官方時刻表為準。">出發前以官方時刻表為準。</p>
+</div>
+</details>
+</section>
+<section class="page" data-page="shopping">
+<div class="page-title"><h2 data-ja-html="買い物・食事" data-zh-html="購物與餐飲">購物與餐飲</h2><p data-ja-html="右上の検索が使えます" data-zh-html="可使用右上角搜尋">可使用右上角搜尋</p></div>
+<details class="searchable" data-page-ref="shopping" data-title="難波 CITY Parks 品牌" open="">
+<summary data-ja-html="なんばCITY／なんばパークス" data-zh-html="難波 CITY／難波 Parks">難波 CITY／難波 Parks</summary>
+<div class="brands">
+<span>STRAWBERRY-FIELDS</span><span>SLOBE IENA</span><span>NATURAL BEAUTY BASIC</span>
+<span>RANDA</span><span>ROPE PICNIC</span><span>Arpege story</span><span>COCO DEAL</span>
+<span>UNIQLO</span><span>GU</span><span>3COINS</span><span data-ja-html="&lt;ruby&gt;無印良品&lt;rt&gt;むじるし りょうひん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="無印良品">無印良品</span><span>agnès b.</span>
+<span>SHIPS</span><span>HARBS</span><span>LOFT</span>
+</div>
+</details>
+<details class="searchable" data-page-ref="shopping" data-title="心齋橋 PARCO Namba Walk 難波丸井 品牌">
+<summary data-ja-html="&lt;ruby&gt;心斎橋&lt;rt&gt;しんさいばし&lt;/rt&gt;&lt;/ruby&gt;PARCO／なんばウォーク／なんばマルイ" data-zh-html="心齋橋 PARCO／Namba Walk／難波丸井">心齋橋 PARCO／Namba Walk／難波丸井</summary>
+<div class="brands">
+<span data-ja-html="ちいかわ" data-zh-html="吉伊卡哇">吉伊卡哇</span><span>KIDDY LAND</span><span>Rilakkuma</span><span>HANDS</span>
+<span>@cosme STORE</span><span>American Holic</span><span>久世福商店</span>
+<span>Honeys</span><span>REGAL SHOES</span><span>Luck Rack</span>
+</div>
+</details>
+<details class="searchable" data-page-ref="shopping" data-title="梅田 LUCUA 阪神梅田 阪急三番街 EST 品牌">
+<summary data-ja-html="&lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt; LUCUA／&lt;ruby&gt;阪神梅田&lt;rt&gt;はんしん うめだ&lt;/rt&gt;&lt;/ruby&gt;／&lt;ruby&gt;阪急三番街&lt;rt&gt;はんきゅう さんばんがい&lt;/rt&gt;&lt;/ruby&gt;／EST" data-zh-html="梅田 LUCUA／阪神梅田／阪急三番街／EST">梅田 LUCUA／阪神梅田／阪急三番街／EST</summary>
+<div class="brands">
+<span>IENA</span><span>Mystrada</span><span>LILLIAN CARAT</span><span>Arpege story</span>
+<span>RANDA</span><span>COCO DEAL</span><span>STRAWBERRY-FIELDS</span><span>SLOBE IENA</span>
+<span>BAYFLOW</span><span>31 Sons de mode</span><span data-ja-html="&lt;ruby&gt;無印良品&lt;rt&gt;むじるし りょうひん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="無印良品">無印良品</span><span>KIDDY LAND</span>
+<span>MISCH MASCH</span><span>PROPORTION BODY DRESSING</span><span>Noela</span>
+<span>eimy istoire</span><span>MERCURYDUO</span><span>And Couture</span><span>Stola.</span>
+</div>
+</details>
+<article class="card searchable" data-page-ref="shopping" data-title="難波餐廳 鶴橋風月 大起水產 東洋亭 黑毛和牛善">
+<h3 data-ja-html="&lt;ruby&gt;難波&lt;rt&gt;なんば&lt;/rt&gt;&lt;/ruby&gt; 食事候選" data-zh-html="難波餐飲候選">難波餐飲候選</h3>
+<p data-ja-html="&lt;ruby&gt;鶴橋風月&lt;rt&gt;つるはし ふうげつ&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;大起水産&lt;rt&gt;だいき すいさん&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;東洋亭&lt;rt&gt;とうようてい&lt;/rt&gt;&lt;/ruby&gt; 大阪髙島屋店、黒毛和牛「&lt;ruby&gt;善&lt;rt&gt;ぜん&lt;/rt&gt;&lt;/ruby&gt;」。" data-zh-html="鶴橋風月、大起水產、東洋亭高島屋店、黑毛和牛「善」。">鶴橋風月、大起水產、東洋亭高島屋店、黑毛和牛「善」。</p>
+</article>
+<article class="card searchable" data-page-ref="shopping" data-title="梅田餐廳 UMEDA FOOD HALL 上島咖啡 星乃咖啡 牛舌">
+<h3 data-ja-html="&lt;ruby&gt;梅田&lt;rt&gt;うめだ&lt;/rt&gt;&lt;/ruby&gt; 食事候選" data-zh-html="梅田餐飲候選">梅田餐飲候選</h3>
+<p data-ja-html="UMEDA FOOD HALL、&lt;ruby&gt;上島珈琲店&lt;rt&gt;うえしま コーヒーてん&lt;/rt&gt;&lt;/ruby&gt;、&lt;ruby&gt;星乃珈琲店&lt;rt&gt;ほしの コーヒーてん&lt;/rt&gt;&lt;/ruby&gt;、牛たん もりの屋。" data-zh-html="UMEDA FOOD HALL、上島咖啡店、星乃咖啡店、牛舌 Morinoya。">UMEDA FOOD HALL、上島咖啡店、星乃咖啡店、牛舌 Morinoya。</p>
+</article>
+</section>
+<section class="page" data-page="more">
+<div class="page-title"><h2 data-ja-html="旅行情報" data-zh-html="旅程資訊">旅程資訊</h2></div>
+<article class="card searchable" data-page-ref="more" data-title="航班 泰越捷 去程 回程" data-title-ja="フライト 往路 帰国">
+<h3 data-ja-html="フライト" data-zh-html="航班">航班</h3>
+<div class="info-row"><strong data-ja-html="往路" data-zh-html="去程">去程</strong><span data-ja-html="桃園 07:25 → &amp;lt;ruby&amp;gt;大阪&amp;lt;rt&amp;gt;おおさか&amp;lt;/rt&amp;gt;&amp;lt;/ruby&amp;gt; 11:05｜第1ターミナル" data-zh-html="桃園 07:25 → 大阪 11:05｜第一航廈">桃園 07:25 → 大阪 11:05｜第一航廈</span></div>
+<div class="info-row"><strong data-ja-html="帰国" data-zh-html="回程">回程</strong><span data-ja-html="&amp;lt;ruby&amp;gt;大阪&amp;lt;rt&amp;gt;おおさか&amp;lt;/rt&amp;gt;&amp;lt;/ruby&amp;gt; 12:25 → 桃園 14:25｜第1ターミナル" data-zh-html="大阪 12:25 → 桃園 14:25｜第一航廈">大阪 12:25 → 桃園 14:25｜第一航廈</span></div>
+
+</article>
+<article class="card searchable" data-page-ref="more" data-title="住宿 Hotel K6 Osaka Namba 地址">
+<h3 data-ja-html="宿泊" data-zh-html="住宿">住宿</h3>
+<div class="info-row"><strong data-ja-html="ホテル" data-zh-html="飯店">飯店</strong><span>Hotel K6 Osaka Namba</span></div>
+<div class="info-row"><strong data-ja-html="住所" data-zh-html="地址">地址</strong><span>2-5-15 Dotonbori, Chuo-ku, Osaka 542-0071</span></div>
+<div class="actions"><a class="btn" data-ja-html="地図" data-zh-html="地圖" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel K6 Osaka Namba" rel="noopener" target="_blank">地圖</a></div>
+</article>
+<article class="card">
+<h3 data-ja-html="確認事項" data-zh-html="待確認">待確認</h3>
+<label class="checkline"><input data-save="ico" type="checkbox"/><span data-ja-html="こどもICOCAの購入場所・必要書類" data-zh-html="兒童 ICOCA 辦理地點與證件">兒童 ICOCA 辦理地點與證件</span></label>
+<label class="checkline" style="margin-top:9px"><input data-save="rapit" type="checkbox"/><span data-ja-html="ラピート往復乗車券" data-zh-html="Rapi:t 去回程車票">Rapi:t 去回程車票</span></label>
+<label class="checkline" style="margin-top:9px"><input data-save="science" type="checkbox"/><span data-ja-html="&lt;ruby&gt;科学館&lt;rt&gt;かがくかん&lt;/rt&gt;&lt;/ruby&gt; プラネタリウム時刻" data-zh-html="科學館天文館場次">科學館天文館場次</span></label>
+<label class="checkline" style="margin-top:9px"><input data-save="d4" type="checkbox"/><span data-ja-html="7/26プランを決定" data-zh-html="決定 7/26 行程版本">決定 7/26 行程版本</span></label>
+</article>
+<details>
+<summary data-ja-html="公式サイト" data-zh-html="官方網站">官方網站</summary>
+<div class="actions">
+<a class="btn alt" data-ja-html="&lt;ruby&gt;大阪くらしの今昔館&lt;rt&gt;おおさか くらし の こんじゃくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="今昔館" href="https://www.osaka-angenet.jp/konjyakukan/" rel="noopener" target="_blank">今昔館</a>
+<a class="btn alt" data-ja-html="&lt;ruby&gt;科学館&lt;rt&gt;かがくかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="科學館" href="https://www.sci-museum.jp/" rel="noopener" target="_blank">科學館</a>
+<a class="btn alt" data-ja-html="&lt;ruby&gt;神戸どうぶつ王国&lt;rt&gt;こうべ どうぶつ おうこく&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="動物王國" href="https://www.kobe-oukoku.com/" rel="noopener" target="_blank">動物王國</a>
+<a class="btn alt" data-ja-html="&lt;ruby&gt;自然史博物館&lt;rt&gt;しぜんし はくぶつかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="自然史博物館" href="https://omnh.jp/" rel="noopener" target="_blank">自然史博物館</a>
+<a class="btn alt" data-ja-html="キッズプラザ" data-zh-html="Kids Plaza" href="https://www.kidsplaza.or.jp/" rel="noopener" target="_blank">Kids Plaza</a>
+<a class="btn alt" data-ja-html="&lt;ruby&gt;海遊館&lt;rt&gt;かいゆうかん&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="海遊館" href="https://www.kaiyukan.com/" rel="noopener" target="_blank">海遊館</a>
+<a class="btn alt" data-ja-html="&lt;ruby&gt;春日大社&lt;rt&gt;かすがたいしゃ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="春日大社" href="https://www.kasugataisha.or.jp/" rel="noopener" target="_blank">春日大社</a>
+<a class="btn alt" data-ja-html="&lt;ruby&gt;東大寺&lt;rt&gt;とうだいじ&lt;/rt&gt;&lt;/ruby&gt;" data-zh-html="東大寺" href="https://www.todaiji.or.jp/" rel="noopener" target="_blank">東大寺</a>
+</div>
+</details>
+</section>
+</main>
+<nav aria-label="主要選單" class="bottom-nav">
+<button class="active" data-page-btn="overview"><span>🏠</span>總覽</button>
+<button data-page-btn="itinerary"><span>🗓️</span>行程</button>
+<button data-page-btn="transport"><span>🚆</span>交通</button>
+<button data-page-btn="shopping"><span>🛍️</span>購物</button>
+<button data-page-btn="more"><span>ℹ️</span>資訊</button>
+</nav>
+<div class="drawer" id="drawer">
+<div class="drawer-panel">
+<div class="drawer-head"><h2 data-ja-html="クイックメニュー" data-zh-html="快速選單">快速選單</h2><button class="close" id="menuClose">✕</button></div>
+<div class="menu-group">
+<h3 data-ja-html="ページ" data-zh-html="頁面">頁面</h3>
+<div class="menu-grid">
+<button data-ja-html="一覧" data-menu-page="overview" data-zh-html="總覽">總覽</button><button data-ja-html="日程" data-menu-page="itinerary" data-zh-html="每日行程">每日行程</button>
+<button data-ja-html="交通" data-menu-page="transport" data-zh-html="交通">交通</button><button data-ja-html="買い物・食事" data-menu-page="shopping" data-zh-html="購物餐飲">購物餐飲</button>
+<button data-ja-html="フライト・宿泊" data-menu-page="more" data-zh-html="航班住宿">航班住宿</button>
+</div>
+</div>
+<div class="menu-group">
+<h3 data-ja-html="日付を直接開く" data-zh-html="直接開啟某一天">直接開啟某一天</h3>
+<div class="menu-grid">
+<button data-ja-html="7/23 &lt;ruby&gt;大阪&lt;rt&gt;おおさか&lt;/rt&gt;&lt;/ruby&gt;" data-menu-day="d1" data-zh-html="7/23 大阪">7/23 大阪</button><button data-ja-html="7/24 &lt;ruby&gt;科学館&lt;rt&gt;かがくかん&lt;/rt&gt;&lt;/ruby&gt;" data-menu-day="d2" data-zh-html="7/24 科學館">7/24 科學館</button>
+<button data-ja-html="7/25 &lt;ruby&gt;神戸&lt;rt&gt;こうべ&lt;/rt&gt;&lt;/ruby&gt;" data-menu-day="d3" data-zh-html="7/25 神戶">7/25 神戶</button><button data-ja-html="7/26 &lt;ruby&gt;大阪&lt;rt&gt;おおさか&lt;/rt&gt;&lt;/ruby&gt;" data-menu-day="d4" data-zh-html="7/26 大阪">7/26 大阪</button>
+<button data-ja-html="7/27 &lt;ruby&gt;奈良&lt;rt&gt;なら&lt;/rt&gt;&lt;/ruby&gt;" data-menu-day="d5" data-zh-html="7/27 奈良">7/27 奈良</button><button data-ja-html="7/28 帰国" data-menu-day="d6" data-zh-html="7/28 回程">7/28 回程</button>
+</div>
+</div>
+</div>
+</div>
+<div class="search-overlay" id="searchOverlay">
+<div class="search-box">
+<div class="search-head"><h2 data-ja-html="日程を検索" data-zh-html="搜尋行程">搜尋行程</h2><button class="close" id="searchClose">✕</button></div>
+<input class="search-input" id="searchInput" placeholder="輸入景點、車站、品牌或餐廳" type="search"/>
+<div id="searchResults"><div class="empty" data-ja-html="キーワードを入力してください" data-zh-html="輸入關鍵字開始搜尋">輸入關鍵字開始搜尋</div></div>
+</div>
+</div>
+<script>
+    const pageButtons=[...document.querySelectorAll('[data-page-btn]')];
+    const pages=[...document.querySelectorAll('[data-page]')];
+    function openPage(name){
+      pages.forEach(p=>p.classList.toggle('active',p.dataset.page===name));
+      pageButtons.forEach(b=>b.classList.toggle('active',b.dataset.pageBtn===name));
+      window.scrollTo({top:0,behavior:'instant'});
+    }
+    pageButtons.forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.pageBtn)));
+
+    const dayButtons=[...document.querySelectorAll('[data-day-btn]')];
+    const dayPanels=[...document.querySelectorAll('[data-day]')];
+    function openDay(day){
+      openPage('itinerary');
+      dayButtons.forEach(b=>b.classList.toggle('active',b.dataset.dayBtn===day));
+      dayPanels.forEach(p=>p.classList.toggle('active',p.dataset.day===day));
+      window.scrollTo({top:0,behavior:'instant'});
+    }
+    dayButtons.forEach(b=>b.addEventListener('click',()=>openDay(b.dataset.dayBtn)));
+    document.querySelectorAll('[data-open-day]').forEach(b=>b.addEventListener('click',()=>openDay(b.dataset.openDay)));
+
+    document.querySelectorAll('.subtabs').forEach(tabbar=>{
+      tabbar.addEventListener('click',e=>{
+        const btn=e.target.closest('[data-sub-btn]'); if(!btn)return;
+        const parent=tabbar.parentElement;
+        tabbar.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===btn));
+        parent.querySelectorAll('.subpanel').forEach(p=>p.classList.toggle('active',p.dataset.sub===btn.dataset.subBtn));
+      });
+    });
+
+    const drawer=document.getElementById('drawer');
+    document.getElementById('menuOpen').onclick=()=>drawer.classList.add('open');
+    document.getElementById('menuClose').onclick=()=>drawer.classList.remove('open');
+    drawer.addEventListener('click',e=>{if(e.target===drawer)drawer.classList.remove('open')});
+    document.querySelectorAll('[data-menu-page]').forEach(b=>b.onclick=()=>{drawer.classList.remove('open');openPage(b.dataset.menuPage)});
+    document.querySelectorAll('[data-menu-day]').forEach(b=>b.onclick=()=>{drawer.classList.remove('open');openDay(b.dataset.menuDay)});
+
+    const overlay=document.getElementById('searchOverlay');
+    const input=document.getElementById('searchInput');
+    const results=document.getElementById('searchResults');
+    const searchables=[...document.querySelectorAll('.searchable')];
+    document.getElementById('searchOpen').onclick=()=>{overlay.classList.add('open');setTimeout(()=>input.focus(),50)};
+    document.getElementById('searchClose').onclick=()=>overlay.classList.remove('open');
+
+    function openSearchResult(el){
+      const page=el.dataset.pageRef||'overview';
+      const day=el.dataset.dayRef;
+      const sub=el.dataset.subRef;
+      overlay.classList.remove('open');
+      if(day) openDay(day); else openPage(page);
+      if(sub){
+        const pane=document.querySelector(`[data-day="${day}"]`);
+        const btn=pane?.querySelector(`[data-sub-btn="${sub}"]`);
+        btn?.click();
+      }
+      setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),80);
+    }
+    input.addEventListener('input',()=>{
+      const q=input.value.trim().toLowerCase();
+      results.innerHTML='';
+      if(!q){
+        const isJa=(window.getTripLanguage&&window.getTripLanguage()==='ja');
+        results.innerHTML=isJa?'<div class="empty">キーワードを入力してください</div>':'<div class="empty">輸入關鍵字開始搜尋</div>';
+        return
+      }
+      const hits=searchables.filter(el=>(el.dataset.title+' '+el.innerText).toLowerCase().includes(q));
+      if(!hits.length){
+        const isJa=(window.getTripLanguage&&window.getTripLanguage()==='ja');
+        results.innerHTML=isJa?'<div class="empty">該当する項目がありません</div>':'<div class="empty">找不到符合項目</div>';
+        return
+      }
+      hits.slice(0,30).forEach(el=>{
+        const b=document.createElement('button');
+        b.className='result';
+        const isJa=(window.getTripLanguage&&window.getTripLanguage()==='ja');
+        const resultTitle=isJa?(el.dataset.titleJa||el.dataset.title||'検索結果'):(el.dataset.title||'搜尋結果');
+        b.innerHTML=`<strong>${resultTitle}</strong><span>${el.innerText.trim().replace(/\s+/g,' ').slice(0,90)}</span>`;
+        b.onclick=()=>openSearchResult(el);
+        results.appendChild(b);
+      });
+    });
+
+    document.querySelectorAll('[data-save]').forEach(box=>{
+      const key='kansai-trip-'+box.dataset.save;
+      box.checked=localStorage.getItem(key)==='1';
+      box.addEventListener('change',()=>localStorage.setItem(key,box.checked?'1':'0'));
+    });
+  
+
+    // Chinese / Japanese travel-language mode.
+    // Japanese mode keeps the practical explanation readable while changing
+    // key place, station and transport nouns to Japanese with furigana.
+    (() => {
+      const langButtons=[...document.querySelectorAll('[data-lang-select]')];
+      const langTargets=[...document.querySelectorAll('[data-ja-html]')];
+      const searchInputEl=document.getElementById('searchInput');
+      const searchResultsEl=document.getElementById('searchResults');
+      let currentLang=localStorage.getItem('kansai-trip-language')||'zh';
+
+      function applyLanguage(lang){
+        currentLang=lang==='ja'?'ja':'zh';
+        document.documentElement.lang=currentLang==='ja'?'ja':'zh-Hant';
+        document.body.classList.toggle('lang-ja',currentLang==='ja');
+
+        langTargets.forEach(el=>{
+          el.innerHTML=currentLang==='ja'?el.dataset.jaHtml:el.dataset.zhHtml;
+        });
+
+        langButtons.forEach(btn=>{
+          const active=btn.dataset.langSelect===currentLang;
+          btn.classList.toggle('active',active);
+          btn.setAttribute('aria-pressed',active?'true':'false');
+        });
+
+        document.title=currentLang==='ja'
+          ?'2026 関西自由行｜大阪・神戸・奈良'
+          :'2026 關西自由行｜大阪・神戶・奈良';
+
+        document.getElementById('menuOpen').setAttribute(
+          'aria-label',currentLang==='ja'?'メニューを開く':'開啟選單'
+        );
+        document.getElementById('searchOpen').setAttribute(
+          'aria-label',currentLang==='ja'?'検索':'搜尋'
+        );
+        document.querySelector('.lang-switch').setAttribute(
+          'aria-label',currentLang==='ja'?'言語切替':'語言切換'
+        );
+        searchInputEl.placeholder=currentLang==='ja'
+          ?'景點、車站、品牌或餐廳名稱を入力'
+          :'輸入景點、車站、品牌或餐廳';
+
+        if(searchInputEl.value){
+          searchInputEl.value='';
+          searchResultsEl.innerHTML=currentLang==='ja'
+            ?'<div class="empty">キーワードを入力してください</div>'
+            :'<div class="empty">輸入關鍵字開始搜尋</div>';
+        }
+        localStorage.setItem('kansai-trip-language',currentLang);
+      }
+
+      langButtons.forEach(btn=>btn.addEventListener('click',()=>applyLanguage(btn.dataset.langSelect)));
+      window.getTripLanguage=()=>currentLang;
+      applyLanguage(currentLang);
+    })();
+</script>
+</body>
+</html>
